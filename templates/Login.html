@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{  url_for('static' , filename = 'css/main.css')  }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background-color: #303641;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id = "flash_error">
+        <h3>HELLO WORLD</h3>
+    </div> -->
+    <div id="container-login">
+        <div>
+            {% if(error_password == True): %}
+            <h4>Please enter correct password!!</h4>
+            {% endif %}
+        </div>
+        <div id="title">
+            <i class="material-icons lock">lock</i> LOGIN
+        </div>
+
+        <form method="POST" action="/login">
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                <input id="username" name = "username" placeholder="Username" type="text" required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                <input name = "password" id="password" placeholder="Password" type="password" required class="validate" autocomplete="off">
+            </div>
+
+            <div class="remember-me">
+                <span style="color: #DDD"></span>
+            </div>
+
+            <input type="submit" value="LOG IN" />
+        </form>
+
+        <div class="forgot-password">
+            <a href="#">Forgot your password?</a>
+        </div>
+
+
+        <div class="register">
+            Don't have an account yet?
+            <a href="{{url_for('register')}}"><button id="register-link">Register here</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

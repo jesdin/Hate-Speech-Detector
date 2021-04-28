@@ -1,0 +1,481 @@
+/*------Browser scroll bar------*/
+::-webkit-scrollbar {
+    height: .4rem;
+    width: .4rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(255, 0, 0);
+}
+
+
+/*------Navigation bar------*/
+.navbar {
+    box-shadow: 0px 5px 10px rgb(52, 52, 52);
+    background-color: black !important;
+    border-radius: 0rem 0rem 0.5rem 0.5rem;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/*------Navbar slides----*/
+.carousel-item {
+    width: 100vw;
+    height: 95vh;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-inner {
+    position: relative;
+}
+
+.carousel-caption {
+    margin-bottom: 4.5rem;
+}
+
+.hero__next-indiactor {
+    position: absolute;
+    top: 87%;
+    left: 50%;
+    cursor: pointer;
+}
+
+.hero__next-indiactor--element {
+    position: relative;
+    transform: rotate(45deg);
+    animation-delay: -0.4s;
+}
+
+.hero__next-indiactor--element,
+.hero__next-indiactor--element::before,
+.hero__next-indiactor--element::after {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    border-bottom: 0.1rem solid #fff;
+    border-right: 0.1rem solid #fff;
+    animation: anim 3s infinite;
+}
+
+.hero__next-indiactor--element::before,
+.hero__next-indiactor--element::after {
+    content: "";
+    position: absolute;
+}
+
+.hero__next-indiactor--element::before {
+    top: -1rem;
+    left: -1rem;
+}
+
+.hero__next-indiactor--element::after {
+    top: 1rem;
+    left: 1rem;
+    animation-delay: 0.4s;
+}
+
+@keyframes anim {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+body {
+    background: #03001e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(200deg, #ec38bc, #7303c0, #03001e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(200deg, #ec38bc, #7303c0, #03001e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: -webkit-linear-gradient(200deg,#fa83da, #d517db, #7303c0, #1e0000);  Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(200deg,#fa83da, #d517db, #7303c0, #03001e); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/*-----Body--------*/
+.body {
+    animation: theme 21s linear infinite;
+}
+
+.body:after,
+.body:before {
+    content: '';
+    display: block;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    width: 100vmax;
+    height: 100vmax;
+    background: rgba(0, 0, 0, 0.05);
+    animation: background 90s linear infinite;
+}
+
+.body:after {
+    left: 15vw;
+}
+
+.body:before {
+    right: 15vw;
+    animation-delay: -30s;
+    animation-direction: reverse;
+}
+
+@keyframes background {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*-----Body--------*/
+
+/*------textarea------*/
+.mainbody1 {
+    display: flex;
+    margin: 2rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+    padding: 2rem;
+}
+
+.form-controls {
+    width: 100% !important;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px rgb(22, 22, 22);
+    border-right-style: none;
+    padding: 0.5rem;
+    margin: 2rem;
+    outline: none;
+}
+
+#the-count {
+    color: #f8f9fa;
+    font-weight: bold;
+    padding: 0.1rem 0 0 0;
+    font-size: 0.875rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    flex-wrap: nowrap;
+    align-content: flex-end;
+    align-items: flex-start;
+}
+
+
+/*------Buttons------*/
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin: 1rem;
+}
+
+.bttn {
+    color: #fc0000;
+    margin-left: 1rem;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 45px;
+    max-width: 160px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 600px) {
+    .btn {
+        margin: 0 1em 2em;
+    }
+}
+
+.bttn:hover {
+    text-decoration: none;
+}
+
+/*------Reset button button------*/
+.bttn-1 {
+    background: transparent;
+    font-weight: 100;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.bttn-1 svg {
+    height: 45px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.bttn-1 rect {
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-dasharray: 422, 0;
+    transition: all 0.35s linear;
+}
+
+.bttn-1:hover {
+    background: transparent;
+    font-weight: 200;
+    letter-spacing: 5px;
+    color: #ffffff;
+}
+
+.bttn-1:hover rect {
+    stroke-width: 5;
+    stroke-dasharray: 15, 310;
+    stroke-dashoffset: 48;
+    transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/*------Decode button------*/
+
+.bttn-2:hover,
+.bttn-2:active {
+    letter-spacing: 5px;
+    color: #5eff00;
+    font-weight: 200;
+}
+
+.bttn-2:after,
+.bttn-2:before {
+    backface-visibility: hidden;
+    border: 1px solid transparent;
+    bottom: 0px;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+.bttn-2:hover:after,
+.bttn-2:hover:before {
+    backface-visibility: hidden;
+    border-color: #5eff00;
+    transition: width 350ms ease-in-out;
+    width: 100%;
+}
+
+.bttn-2:hover:before {
+    bottom: auto;
+    top: 0;
+    width: 90%;
+}
+
+.sub {
+    text-decoration: none;
+}
+
+/*------display result------*/
+.mainbody2 {
+    min-height: 50px;
+    padding: 30px;
+}
+
+
+/*------Website footer------*/
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer-section {
+    background: #151414;
+    position: relative;
+}
+
+.footer-cta {
+    border-bottom: 1px solid #373636;
+}
+
+.single-cta {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+}
+
+.single-cta i {
+    color: #b3ff00;
+    font-size: 30px;
+    float: left;
+    margin-top: 8px;
+}
+
+.cta-text {
+    padding-left: 15px;
+    display: inline-block;
+}
+
+.cta-text h4 {
+    color: #aaaaaa;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.cta-text span {
+    color: #b3ff00;
+    font-size: 15px;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-pattern img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 330px;
+    background-size: cover;
+    background-position: 100% 100%;
+}
+
+.footer-logo {
+    margin-bottom: 30px;
+}
+
+.footer-logo img {
+    max-width: 200px;
+}
+
+.footer-text p h4 {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #979797;
+    line-height: 28px;
+}
+
+.footer-text {
+    color: #aaaaaa;
+    text-align: justify;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#wid {
+    padding-top: 7rem;
+}
+
+.footer-widget-heading h3 {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.footer-widget-heading h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    height: 2px;
+    width: 220px;
+    background: #0004ff;
+}
+
+.names {
+    font-family: cursive;
+    font-size: 1.5srem;
+    color: #aaaaaa;
+    font-weight: bold;
+}
+
+.footer-widget ul li {
+    /* display: inline-block; */
+    float: center;
+    width: 50%;
+    margin-bottom: 12px;
+}
+
+.footer-widget ul li a:hover {
+    color: #5eff00;
+}
+
+.footer-widget ul li a {
+    color: #878787;
+    text-transform: capitalize;
+}
+
+.copyright-area {
+    background: #202020;
+    padding: 25px 0;
+}
+
+.copyright-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #878787;
+}
+
+.copyright-text p a {
+    color: #ff1100;
+}
+
+.text-center {
+    margin: auto !important;
+}
+
+.select {
+    padding-bottom: 1rem;
+}
+
+#sel {
+    background-color: #151414;
+    color: white;
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
