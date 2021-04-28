@@ -104,9 +104,9 @@ def detection():
         print(f'TRUE COUNT {true_count}')
         print(np.any(prediction))
         if(true_count > 1):
-            result = "HATE SPEECH DETECTED"
+            result = True
         else:
-            result = "GOOD TO GO"
+            result = False
         return render_template('detection.html')
     return render_template('detection.html')
 
