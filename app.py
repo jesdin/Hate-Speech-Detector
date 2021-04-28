@@ -111,4 +111,4 @@ def detection():
     return render_template('detection.html')
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(threaded=True, port=5000)
