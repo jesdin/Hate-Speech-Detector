@@ -99,7 +99,13 @@
     </form>
 
     <div class="mainbody1">
-      <textarea class="form-controls" aria-label="With textarea" cols="80" rows="1" id="form"></textarea>
+      <!-- <textarea class="form-controls" aria-label="With textarea" cols="80" rows="1" id="form"></textarea> -->
+      {% if (result == True): %}
+      <p id="result_red" style="color: red; font-weight: bold;font-size:50px;">HATE SPEECH DETECTED</p>
+      {% endif %}
+      {% if (result == False): %}
+      <p id = "result_green" style="color: green; font-weight: bold; font-size: 100px;"> GOOD TO GO</p>
+      {% endif %}
     </div>
   </div>
   <div class="mainbody2" id="mai">
@@ -107,11 +113,28 @@
       style="margin: 0rem; box-shadow:5px 5px 10px rgb(22 22 22); border-radius: 1rem;">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">SENTENCES</th>
+          <th scope="col">RESULTS</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        {% if (len_recently_added < 5): %}
+          {% for i in range(0 , len_recently_added): %}
+            <tr>
+              <th>{{ recently_added[i][0] }}</th>
+              <th>{{ recently_added[i][1] }}</th>
+            </tr>
+          {% endfor %}
+        {% endif %}
+        {% if (len_recently_added >= 5): %}
+          {% for i in range(0 , 5): %}
+            <tr>
+              <th>{{ recently_added[i][0] }}</th>
+              <th>{{ recently_added[i][1] }}</th>
+            </tr>
+          {% endfor %}
+        {% endif %}
+        <!-- <tr>
           <th scope="row">1. Hate Speech</th>
         </tr>
         <tr>
@@ -119,7 +142,7 @@
         </tr>
         <tr>
           <th scope="row">3. bye</th>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>

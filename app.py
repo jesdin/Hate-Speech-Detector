@@ -5,8 +5,8 @@ import numpy as np
 import pyrebase
 import os
 import sys
-from flask import Flask, render_template, url_for, redirect, request
-app = Flask(__name__)
+from flask import Flask, render_template, url_for, redirect, request, session
+app = Flask(__name__,template_folder="template",static_folder="static")
 config = {
     "apiKey": "AIzaSyAR4JirIoyLSyFevIjpeKT8w2TYrs7Fv88",
     "authDomain": "hate-speech-detection-c30b7.firebaseapp.com",
@@ -17,6 +17,7 @@ config = {
     "appId": "1:384678667028:web:efd828ff6043fc14dc9801",
     "measurementId": "G-08P28GDFE3"
 }
+app.config["SECRET_KEY"] = "ursecretkey"
 print(tf.__version__)
 model_path = '/home/prajwal/nlp_project/hate-speech-detection/model/hate_speech_model.h5'
 new_model = load_model('./model/hate_speech_model.h5')
@@ -41,10 +42,41 @@ def create_user(username , data):
     except Exception as e:
         return ('SOMETHING WENT WRONG IN CREATING USER!!!!')
 
+def fetch_data(user):
+    user_data = db.child("usertable").child(str(user)).get()
+    for i in user_data.each():
+        if(i.key() == 'sentiments'):
+            ss = i.val()
+    del ss[0]
+    ss.reverse()
+    return ss
+
+def update_database(user , sentence , result):
+    try:
+        user_data = db.child("usertable").child(str(user)).get()
+        for i in user_data.each():
+            if(i.key() == 'sentiments'):
+                i.val().append([sentence, result])
+                val = i.val()
+        db.child("usertable").child(user).update({"sentiments": val})
+        return True
+    except Exception as e:
+        return("Something Went Wrong !!")
+
 #home_page
 @app.route("/")
 def home():
     return redirect(url_for('login'))
+
+@app.route("/landing")
+def landing():
+    if 'username' not in session:
+        return render_template('register.html')
+    else:
+        recently_added = fetch_data(session['username'])
+        print(type(recently_added))
+        print(recently_added)
+        return render_template('detection.html' , recently_added = recently_added , len_recently_added = len(recently_added))
 
 #login_page
 @app.route("/login" , methods = ['GET' , 'POST'])
@@ -55,7 +87,8 @@ def login():
         if db.child('usertable').child(username).get().val() is not None:
             user_password = db.child('usertable').child(str(username)).child("password").get().val()
             if user_password == password:
-                return redirect(url_for("detection"))
+                session['username'] = request.form['username']
+                return redirect(url_for("landing"))
             else:
                 print('Password is wrong!!')
                 return render_template('Login.html' , error_password = True)
@@ -77,16 +110,19 @@ def register():
             data = {
                 "email": email,
                 "username":username,
-                "password": password
+                "password": password,
+                "sentiments":[('Sentences', 'Hate')]
             }
             create_user(username , data)
             return redirect(url_for('login'))
-    return render_template('register.html')
+    else:
+        return render_template('register.html')
 
 #detection_page for hatespeech
 @app.route("/detection" , methods = ['GET','POST'])
 def detection():
-    if request.method == 'POST':
+    #detecting the hate-speech
+    if "username" in session:
         text = request.form['text']
         print(text)
         tokenizer.fit_on_texts(text)
@@ -103,12 +139,19 @@ def detection():
                 true_count += 1
         print(f'TRUE COUNT {true_count}')
         print(np.any(prediction))
+        result = False
         if(true_count > 1):
             result = True
         else:
             result = False
-        return render_template('detection.html')
-    return render_template('detection.html')
+        
+        #filing the table with the searched texts.
+        update_database(session['username'] , str(text) , str(result))
+        recently_added = fetch_data['username']
+        return render_template('detection.html' , result = result , recently_added = recently_added , len_recently_added = len(recently_added))
+    else:
+        render_template('register.html')
 
 if __name__ == "__main__":
-    app.run(threaded=True, port=5000)
+    # app.run(debug = True)
+    app.run()
