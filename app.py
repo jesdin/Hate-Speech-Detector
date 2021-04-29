@@ -6,7 +6,7 @@ import pyrebase
 import os
 import sys
 from flask import Flask, render_template, url_for, redirect, request, session
-app = Flask(__name__,template_folder="template",static_folder="static")
+app = Flask(__name__)
 config = {
     "apiKey": "AIzaSyAR4JirIoyLSyFevIjpeKT8w2TYrs7Fv88",
     "authDomain": "hate-speech-detection-c30b7.firebaseapp.com",
@@ -147,11 +147,10 @@ def detection():
         
         #filing the table with the searched texts.
         update_database(session['username'] , str(text) , str(result))
-        recently_added = fetch_data['username']
+        recently_added = fetch_data(session['username'])
         return render_template('detection.html' , result = result , recently_added = recently_added , len_recently_added = len(recently_added))
     else:
         render_template('register.html')
 
 if __name__ == "__main__":
-    # app.run(debug = True)
-    app.run()
+    app.run(debug = True)
