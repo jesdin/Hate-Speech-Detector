@@ -171,3 +171,4 @@ Thumbs.db
 
 # ignore models
 *.h5
+*.pickle

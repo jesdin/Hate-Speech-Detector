@@ -3,8 +3,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import text , sequence
 import numpy as np
 import pyrebase
-import os
-import sys
+import string
+import pickle
 from flask import Flask, render_template, url_for, redirect, request, session
 app = Flask(__name__)
 config = {
@@ -18,10 +18,12 @@ config = {
     "measurementId": "G-08P28GDFE3"
 }
 app.config["SECRET_KEY"] = "ursecretkey"
+
 print(tf.__version__)
 model_path = '/home/prajwal/nlp_project/hate-speech-detection/model/hate_speech_model.h5'
 new_model = load_model('./model/hate_speech_model.h5')
 print('NLP MODEL LOADED SUCCESSFULLY!!')
+
 #initializing the database
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
@@ -32,6 +34,8 @@ maxlen = 100
 
 #creating tokenizer
 tokenizer = text.Tokenizer(num_words=max_features)
+with open('./model/tokenizer.pickle', 'rb') as handle:
+    tokenizer = pickle.load(handle)
 
 # new_model.summary()
 #function for creating new user
@@ -124,8 +128,8 @@ def detection():
     #detecting the hate-speech
     if "username" in session:
         text = request.form['text']
+        text = text.translate(str.maketrans('', '', string.punctuation))
         print(text)
-        tokenizer.fit_on_texts(text)
         tokenized_sentence = tokenizer.texts_to_sequences(text)
         x = sequence.pad_sequences(tokenized_sentence , maxlen = maxlen)
         print(type(x))
